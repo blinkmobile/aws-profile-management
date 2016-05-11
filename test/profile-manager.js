@@ -23,7 +23,7 @@ test.serial('it should return the currently set profile', t => {
   const configHelperMock = {
     projectConfig: function () {
       return {
-        read: () => Promise.resolve({profile: expectedProfile})
+        load: () => Promise.resolve({profile: expectedProfile})
       };
     }
   };
@@ -35,7 +35,7 @@ test.serial('it should return the currently set profile', t => {
 
   return profile.read().then((s) => {
     t.same(s, expectedProfile);
-    t.same(profile.profileName, expectedProfile);
+    t.same(profile.name, expectedProfile);
   });
 });
 
@@ -44,7 +44,7 @@ test.serial('it should handle an unitinitalised config file by returning the def
   const configHelperMock = {
     projectConfig: function () {
       return {
-        read: () => Promise.resolve({})
+        load: () => Promise.resolve({})
       };
     }
   };
@@ -55,7 +55,7 @@ test.serial('it should handle an unitinitalised config file by returning the def
   const profile = new Profile();
   return profile.read().then((s) => {
     t.same(s, expectedProfile);
-    t.same(profile.profileName, expectedProfile);
+    t.same(profile.name, expectedProfile);
   });
 });
 
@@ -64,7 +64,7 @@ test.serial('it should set default if no profile supplied', t => {
   const configHelperMock = {
     projectConfig: function () {
       return {
-        read: () => Promise.resolve({profile: expectedProfile}),
+        load: () => Promise.resolve({profile: expectedProfile}),
         write: (cfg) => Promise.resolve(cfg)
       };
     }
@@ -76,7 +76,7 @@ test.serial('it should set default if no profile supplied', t => {
   const profile = new Profile();
   return profile.write().then((cfg) => {
     t.same(cfg.profile, expectedProfile);
-    t.same(profile.profileName, expectedProfile);
+    t.same(profile.name, expectedProfile);
   });
 });
 
@@ -99,7 +99,7 @@ test.serial('it should merge new profile with the current config', t => {
   const configHelperMock = {
     projectConfig: function () {
       return {
-        read: () => Promise.resolve(originalConfig),
+        load: () => Promise.resolve(originalConfig),
         write: (cfg) => Promise.resolve(cfg)
       };
     }
