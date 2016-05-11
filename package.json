@@ -1,0 +1,31 @@
+{
+  "name": "@blinkmobile/aws-profile-management",
+  "version": "0.0.1",
+  "description": "Helper classes for dealing with multiple AWS Keys",
+  "main": "index.js",
+  "scripts": {
+    "ava": "ava",
+    "lint": "eslint .",
+    "make-docs": "jsdoc index.js ./lib -d ./jsdocs",
+    "test": "npm-run-all lint ava"
+  },
+  "author": "Simon Dobie",
+  "license": "BSD-3-Clause",
+  "devDependencies": {
+    "ava": "^0.13.0",
+    "eslint": "^2.6.0",
+    "eslint-config-semistandard": "^6.0.1",
+    "eslint-config-standard": "^5.1.0",
+    "eslint-plugin-promise": "^1.1.0",
+    "eslint-plugin-standard": "^1.3.1",
+    "jsdoc": "^3.4.0",
+    "mockery": "^1.4.0",
+    "npm-run-all": "^1.5.1",
+    "temp": "^0.8.3"
+  },
+  "dependencies": {
+    "@blinkmobile/blinkmrc": "1.1.0",
+    "aws-sdk": "^2.3.10",
+    "lodash.memoize": "^4.0.3"
+  }
+}
