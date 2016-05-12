@@ -9,7 +9,6 @@ const profileModule = '../lib/profile-manager.js';
 test.beforeEach(() => {
   mockery.enable({ useCleanCache: true });
   mockery.registerAllowable(profileModule, true);
-  // mockery.registerAllowables(['object-merge', 'object-foreach', 'clone-function']);
 });
 
 test.afterEach(() => {
@@ -55,6 +54,27 @@ test.serial('it should handle an unitinitalised config file by returning the def
   const profile = new Profile();
   return profile.read().then((s) => {
     t.same(s, expectedProfile);
+    t.same(profile.name, expectedProfile);
+  });
+});
+
+test.serial('it should handle a missing config file by returning the default profile', t => {
+  const expectedProfile = 'default';
+  const configHelperMock = {
+    projectConfig: function () {
+      return {
+        load: () => Promise.reject(new Error('failed')),
+        write: (cfg) => Promise.resolve(cfg)
+      };
+    }
+  };
+
+  mockery.registerMock(configLoaderModule, configHelperMock);
+
+  const Profile = require(profileModule);
+  const profile = new Profile();
+  return profile.write().then((s) => {
+    t.same(s.profile, expectedProfile);
     t.same(profile.name, expectedProfile);
   });
 });
