@@ -1,6 +1,6 @@
 {
   "name": "@blinkmobile/aws-profile-management",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Helper classes for dealing with multiple AWS Keys",
   "main": "index.js",
   "scripts": {
